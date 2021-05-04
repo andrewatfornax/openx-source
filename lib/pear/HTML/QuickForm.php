@@ -1947,12 +1947,10 @@ class HTML_QuickForm extends HTML_Common
     /**
      * Tell whether a result from a QuickForm method is an error (an instance of HTML_QuickForm_Error)
      *
-     * @access public
      * @param mixed     result code
      * @return bool     whether $value is an error
-     * @static
      */
-    function isError($value)
+    public static function isError($value)
     {
         return (is_object($value) && is_a($value, 'html_quickform_error'));
     } // end func isError
@@ -1963,12 +1961,10 @@ class HTML_QuickForm extends HTML_Common
     /**
      * Return a textual error message for an QuickForm error code
      *
-     * @access  public
      * @param   int     error code
      * @return  string  error message
-     * @static
      */
-    function errorMessage($value)
+    public static function errorMessage($value)
     {
         // make the variable static so that it only has to do the defining on the first call
         static $errorMessages;
