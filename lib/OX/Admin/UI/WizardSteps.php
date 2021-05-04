@@ -30,9 +30,10 @@ class OX_UI_WizardSteps
 
         $aWizardSteps = array();
         $i = 0;
+        $currentReached = false;
         if ($aSteps) {
             foreach ($aSteps as $stepId => $stepName) {
-                $currentReached = $currentReached ?? $stepId == $currentStepId;
+                $currentReached = $currentReached ?: $stepId == $currentStepId;
                 $current = $stepId == $currentStepId;
 
                 if ($current && $i > 0) {
