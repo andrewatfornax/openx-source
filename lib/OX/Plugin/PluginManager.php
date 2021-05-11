@@ -174,7 +174,7 @@ class OX_PluginManager extends OX_Plugin_ComponentGroupManager
             }
 
             $enabled = (!empty($GLOBALS['_MAX']['CONF']['plugins'][$name])) ? true : false;
-            $this->disablePackage($name);
+            $this->disablePackage($name, true);
             if (!$this->unpackPlugin($aFile))
             {
                 throw new Exception();
