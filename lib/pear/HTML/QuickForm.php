@@ -754,17 +754,18 @@ class HTML_QuickForm extends HTML_Common
      * @param     string     $element    Element name
      * @since     2.0
      * @access    public
-     * @return    HTML_QuickForm_element    reference to element
-     * @throws    HTML_QuickForm_Error
+     * @return    HTML_QuickForm_element|HTML_QuickForm_Error
      */
-    function &getElement($element)
+    function getElement($element)
     {
         if (isset($this->_elementIndex[$element])) {
             return $this->_elements[$this->_elementIndex[$element]];
-        } else {
-            $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElement()", 'HTML_QuickForm_Error', true);
-            return $error;
         }
+
+        /** @var HTML_QuickForm_Error $error */
+        $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, PEAR_ERROR_RETURN, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElement()", 'HTML_QuickForm_Error', true);
+
+        return $error;
     } // end func getElement
 
     // }}}
