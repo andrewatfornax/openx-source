@@ -144,10 +144,9 @@ class OA_Admin_DaySpan
     /**
      * A method to obtain the begining of week, according to the user's preferences.
      *
-     * @static
      * @return integer The begining of week. (Sunday is 0, Monday is 1, etc.).
      */
-    function getBeginOfWeek()
+    public static function getBeginOfWeek()
     {
         if (isset($GLOBALS['_MAX']['PREF']['ui_week_start_day'])) {
             return $GLOBALS['_MAX']['PREF']['ui_week_start_day'];
