@@ -1311,7 +1311,7 @@ class OA_Admin_Statistics_Common extends OA_Admin_Statistics_Flexy
                         if ($value) {
                             $this->aTotal[$key] = $value;
                         }
-                    } else {
+                    } elseif (is_numeric($value)) {
                         $this->aTotal[$key] += $value;
                     }
                     $showTotals = true;
