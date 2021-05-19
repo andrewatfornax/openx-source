@@ -136,10 +136,10 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
 
         include_once 'Image/Graph.php';
 
-        $this->_axisX = Image_Graph::factory($axisX, IMAGE_GRAPH_AXIS_X);
+        $this->_axisX =& Image_Graph::factory($axisX, IMAGE_GRAPH_AXIS_X);
         $this->_axisX->_setParent($this);
 
-        $this->_axisY = Image_Graph::factory($axisY, IMAGE_GRAPH_AXIS_Y);
+        $this->_axisY =& Image_Graph::factory($axisY, IMAGE_GRAPH_AXIS_Y);
         $this->_axisY->_setParent($this);
         $this->_axisY->_setMinimum(0);
 
@@ -194,7 +194,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
      * @return Image_Graph_Element The added element
      * @see Image_Graph_Common::add()
      */
-    function add($element, $axis = IMAGE_GRAPH_AXIS_Y)
+    function &add(& $element, $axis = IMAGE_GRAPH_AXIS_Y)
     {
         if ($axis == 'x') {
             $axis = IMAGE_GRAPH_AXIS_X;
@@ -208,7 +208,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
         if (($axis == IMAGE_GRAPH_AXIS_Y_SECONDARY) &&
             ($this->_axisYSecondary == null))
         {
-            $this->_axisYSecondary = Image_Graph::factory('axis', IMAGE_GRAPH_AXIS_Y_SECONDARY);
+            $this->_axisYSecondary =& Image_Graph::factory('axis', IMAGE_GRAPH_AXIS_Y_SECONDARY);
             $this->_axisYSecondary->_setMinimum(0);
             if ($this->_horizontal) {
                 $this->_axisYSecondary->_transpose = true;
@@ -437,9 +437,9 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
                 ($value['AXIS_Y'] == IMAGE_GRAPH_AXIS_Y_SECONDARY) &&
                 ($this->_axisYSecondary !== null)
             ) {
-                $axisY = $this->_axisYSecondary;
+                $axisY =& $this->_axisYSecondary;
             } else {
-                $axisY = $this->_axisY;
+                $axisY =& $this->_axisY;
             }
             if ($value['Y'] === '#min_pos#') {
                 return $axisY->_point(max(0, $axisY->_getMinimum()));
@@ -513,7 +513,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
      */
     function _getMinimum($axis = IMAGE_GRAPH_AXIS_Y)
     {
-        $axis = $this->getAxis($axis);
+        $axis =& $this->getAxis($axis);
         if ($axis !== null) {
             return $axis->_getMinimum();
         } else {
@@ -531,7 +531,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
      */
     function _getMaximum($axis = IMAGE_GRAPH_AXIS_Y)
     {
-        $axis = $this->getAxis($axis);
+        $axis =& $this->getAxis($axis);
         if ($axis !== null) {
             return $axis->_getMaximum();
         } else {
@@ -548,7 +548,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
      */
     function _labelDistance($axis)
     {
-        $axis = $this->getAxis($axis);
+        $axis =& $this->getAxis($axis);
         if ($axis !== null) {
             return $axis->_labelDistance();
         }
@@ -619,7 +619,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
         if (is_array($this->_elements)) {
             $keys = array_keys($this->_elements);
             foreach ($keys as $key) {
-                $element = $this->_elements[$key];
+                $element =& $this->_elements[$key];
                 if (is_a($element, 'Image_Graph_Plot')) {
                     if (((is_a($element, 'Image_Graph_Plot_Bar')) ||
                         (is_a($element, 'Image_Graph_Plot_Step')) ||
@@ -763,9 +763,9 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
             if (($intersectX['axis'] == IMAGE_GRAPH_AXIS_Y_SECONDARY) &&
                 ($this->_axisYSecondary !== null)
             ) {
-                $axis = $this->_axisYSecondary;
+                $axis =& $this->_axisYSecondary;
             } elseif ($this->_axisY !== null) {
-                $axis = $this->_axisY;
+                $axis =& $this->_axisY;
             } else {
                 $axis = false;
             }

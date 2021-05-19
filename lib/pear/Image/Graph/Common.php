@@ -124,7 +124,7 @@ class Image_Graph_Common
             foreach ($keys as $key) {
                 if (is_object($this->_elements[$key])) {
                     $this->_elements[$key]->_setParent($this);
-                    $result = $this->_elements[$key]->_reset();
+                    $result =& $this->_elements[$key]->_reset();
                     if (PEAR::isError($result)) {
                         return $result;
                     }
@@ -145,7 +145,7 @@ class Image_Graph_Common
     function _setParent(& $parent)
     {
         $this->_parent =& $parent;
-        $this->_canvas = $this->_parent->_getCanvas();
+        $this->_canvas =& $this->_parent->_getCanvas();
 
         if (is_array($this->_elements)) {
             $keys = array_keys($this->_elements);
@@ -177,7 +177,7 @@ class Image_Graph_Common
         if (($this->_canvas !== null) || ($this->_canvas !== false)) {
             return $this->_canvas;
         } elseif (is_a($this->_parent, 'Image_Graph_Common')) {
-            $this->_canvas = $this->_parent->_getCanvas();
+            $this->_canvas =& $this->_parent->_getCanvas();
             return $this->_canvas;
         } else {
             $this->_error('Invalid canvas');
@@ -194,7 +194,7 @@ class Image_Graph_Common
      * @param Image_Graph_Common $element The new Image_Graph_element
      * @return Image_Graph_Common The new Image_Graph_element
      */
-    function add($element)
+    function add(& $element)
     {
         if (!is_a($element, 'Image_Graph_Font')) {
             $this->_elements[] = &$element;
@@ -218,14 +218,14 @@ class Image_Graph_Common
      * @param mixed $params The paramaters to pass to the constructor
      * @return Image_Graph_Common The new Image_Graph_element
      */
-    function addNew($class, $params = null, $additional = false)
+    function &addNew($class, $params = null, $additional = false)
     {
         include_once 'Image/Graph.php';
-        $element = Image_Graph::factory($class, $params);
+        $element =& Image_Graph::factory($class, $params);
         if ($additional === false) {
-            $obj = $this->add($element);
+            $obj =& $this->add($element);
         } else {
-            $obj = $this->add($element, $additional);
+            $obj =& $this->add($element, $additional);
         }
         return $obj;
     }

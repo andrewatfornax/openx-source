@@ -388,7 +388,7 @@ class Image_Graph extends Image_Graph_Element
      * @return object A new object for the class
      * @static
      */
-    public static function factory($class, $params = null)
+    public static function &factory($class, $params = null)
     {
     	static $Image_Graph_classAliases = array(
 			'graph'          => 'Image_Graph',

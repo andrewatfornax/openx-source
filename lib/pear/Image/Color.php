@@ -231,8 +231,8 @@ class Image_Color
     */
     function changeLightness ( $degree=10 )
     {
-        $color2 = $this->color2;
-        $color1 = $this->color1;
+        $color2 =& $this->color2;
+        $color1 =& $this->color1;
 
         for ( $x = 0; $x < 3; $x++ )
         {
@@ -504,7 +504,8 @@ class Image_Color
     * @static
     * @author   Sebastian Bergmann <sb@sebastian-bergmann.de>
     */
-    public static function namedColor2RGB($color) {
+    public static function namedColor2RGB($color)
+    {
         static $colornames;
 
         if (!isset($colornames)) {
